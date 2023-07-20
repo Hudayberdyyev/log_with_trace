@@ -5,6 +5,7 @@ import (
 	"context"
 	"encoding/csv"
 	"github.com/Hudayberdyyev/log_with_trace/app/domain"
+	"github.com/pkg/errors"
 	"github.com/rs/zerolog/log"
 	"math/rand"
 	"os"
@@ -44,7 +45,7 @@ func (repo *filePhraseRepository) GetPhraseOfTheDay(_ context.Context) (*domain.
 			Int32("randomLineNumber", randomLineNumber).
 			Int32("lineNumber", lineNumber).
 			Msg("error reading csv line")
-		return nil, err
+		return nil, errors.New(err.Error())
 	}
 	return domain.NewPhrase(record[0], record[1]), nil
 }
