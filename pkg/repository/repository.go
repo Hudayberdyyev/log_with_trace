@@ -20,10 +20,6 @@ func NewFilePhraseRepository(storage *os.File) domain.PhrasesRepository {
 }
 
 func (repo *filePhraseRepository) GetPhraseOfTheDay(_ context.Context) (*domain.Phrase, error) {
-	if _, err := repo.storage.Seek(0, 0); err != nil {
-		return nil, err
-	}
-
 	fileScanner := bufio.NewScanner(repo.storage)
 	fileScanner.Split(bufio.ScanLines)
 
